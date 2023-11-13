@@ -1,3 +1,10 @@
-import { render, h } from "preact"
+import { h } from "preact" // Explicitly tells babel to use this function in place of JSX somehow.
 
-render(<p class="test">hello there!</p>)
+export function ListCounter(props) {
+    let elements = []
+    let countint = Number(props.count)
+    for (let index = 1; index <= countint; index++) {
+        elements.push(<li>{index}</li>)
+    }
+    return <ol>{elements}</ol>
+}

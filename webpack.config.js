@@ -14,17 +14,7 @@ production = {
             test: /\.jsx$/,
             exclude: /node_modules/,
             use: {
-              loader: 'babel-loader',
-              options: {
-                "plugins": [
-                  ["@babel/plugin-transform-react-jsx", { 
-                          targets: {node: "current"},
-                          pragma: "h",
-                          pragmaFrag: "Fragment"
-                      }
-                  ]
-                ]
-            }
+              loader: 'babel-loader'
           }
         }
       ]
@@ -37,7 +27,7 @@ development = {
   entry: './src/index.jsx',
   output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: "devturkeysite.bundle.js"
+      filename: "tests.bundle.js"
   },
   module: {
     rules: [
@@ -46,20 +36,12 @@ development = {
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
-            options: {
-              "plugins": [
-                ["@babel/plugin-transform-react-jsx", { 
-                        targets: {node: "current"},
-                        pragma: "h",
-                        pragmaFrag: "Fragment"
-                    }
-                ]
-              ]
             }
           }
-        }
     ]
-  }
+   }
+    
+  
 }
 
 module.exports = [production, development]
