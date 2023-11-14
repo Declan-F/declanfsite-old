@@ -1,3 +1,6 @@
+/** @preserve
+ * Copyright 2023 Declan Fodor
+ */
 import { h } from "preact"
 import { mount} from 'enzyme';
 import { describe, expect, test, beforeEach } from '@jest/globals';
@@ -23,7 +26,7 @@ describe("<AboutButton />", () => {
     expect(aboutbutton.find("button").props()).not.toBeFalsy()
     expect(aboutbutton.find("button").props().onClick).not.toBeFalsy()
     expect(aboutbutton.find("button > p").length).toBe(2)
-
+    expect(aboutbutton.find("div")).toBeTruthy()
     // ... no need to write the rest.
   })
 })
