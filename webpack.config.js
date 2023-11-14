@@ -1,21 +1,30 @@
+/** @preserve
+ * Copyright 2023 Declan Fodor
+ */
+const path = require('path')
 const webpack = require('webpack')
+const LicensePlugin = require('webpack-license-plugin')
 
 const production = {
-  mode: 'development',
+  mode: 'production',
   target: 'web',
   // Entry points are split into renderers for specific pages which use a shared library consisting of preact components.
   entry: {
     sharedElements: './src/index.jsx',
-    frontrenderer: { import: './src/pages/frontpage.jsx', dependOn: 'sharedElements' },
-    aboutusrenderer: { import: './src/pages/aboutus.jsx', dependOn: 'sharedElements' }
+    // name: { import: '...', dependOn: 'sharedElements' },
+    frontrenderer: { import: './src/renderers/frontpage.jsx', dependOn: 'sharedElements' },
+    aboutusrenderer: { import: './src/renderers/aboutus.jsx', dependOn: 'sharedElements' }
   },
   output: {
-    filename: '[name].bundle.js'
+    path: path.resolve(__dirname, "pages/dist/"),
+    filename: '[name].bundle.js',
+    clean: true
   },
   module: {
     rules: [
       {
-        test: /(\.jsx|\.module\.js)$/,
+        // Runs babel
+        test: /(\.jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
@@ -23,37 +32,16 @@ const production = {
       }
     ]
   },
-
+  // For debugging
   plugins: [
     new webpack.ProgressPlugin({
       activeModules: true,
       handler: (percentage, message, ...args) => {
         console.log(percentage, message, ...args);
       }
-    })
+    }),
+    new LicensePlugin()
   ]
 }
-
-// const development = {
-//   mode: 'development',
-//   target: 'node',
-//   entry: './src/index.jsx',
-//   output: {
-//     path: path.resolve(__dirname, 'dist'),
-//     filename: 'tests.bundle.js'
-//   },
-//   module: {
-//     rules: [
-//       {
-//         test: /\.jsx$/,
-//         exclude: /node_modules/,
-//         use: {
-//           loader: 'babel-loader'
-//         }
-//       }
-//     ]
-//   }
-
-// }
 
 module.exports = [production]
