@@ -23,7 +23,7 @@ describe("<AboutButton />", () => {
     expect(aboutbutton.find("button").props()).not.toBeFalsy()
     expect(aboutbutton.find("button").props().onClick).not.toBeFalsy()
     expect(aboutbutton.find("button > p").length).toBe(2)
-
+    expect(aboutbutton.find("div")).toBeTruthy()
     // ... no need to write the rest.
   })
 })
