@@ -17,4 +17,4 @@ jobs:
   runtests:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello world! $SILENT"
+      - run: echo "npm run test -- --silent=${{ toJSON(inputs.silent) }}"
