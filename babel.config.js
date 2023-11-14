@@ -8,9 +8,10 @@ module.exports = api => {
         pragmaFrag: "Fragment"
       }
       ],
-      "@babel/plugin-transform-class-properties"
+      "@babel/plugin-transform-class-properties",
+      "@babel/plugin-transform-private-methods"
     ],
-    ignore: ["./node_modules/"],
+    ignore: api.env('test') ? [] : ["./node_modules/"],
     targets: api.env('test') ? {node: "current"} : "cover 99.5%, not dead"
   }
 }
