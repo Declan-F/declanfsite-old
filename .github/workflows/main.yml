@@ -1,0 +1,20 @@
+name: site-testing
+run-name: Runs unit test suite for the website
+on:
+  workflow_dispatch:
+    inputs:
+      silent:
+        description: "Print log messsages in javascript files"
+        type: boolean
+        default: true
+        
+  pull_request:
+    types: 
+      - edited
+    paths:
+      - '*.jsx'
+jobs:
+  runtests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello world! $SILENT"
