@@ -1,6 +1,6 @@
 module.exports = api => {
   return {
-    presets: [["@babel/preset-env", { debug: true }], "@babel/preset-react"],
+    presets: [["@babel/preset-env", { debug: false }], "@babel/preset-react"],
     plugins: [
       ["@babel/plugin-transform-react-jsx", {
         targets: api.env('test') ? {node: "current"} : "defaults",
