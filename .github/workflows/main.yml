@@ -17,4 +17,12 @@ jobs:
   runtests:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "npm run test -- --silent=${{ toJSON(inputs.silent) }}"
+      - name: Use node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+          cache: 'npm'
+      - name: Run jest tests
+        run: |
+          npm install
+          npm run test -- --silent=${{ toJSON(inputs.silent) }}
