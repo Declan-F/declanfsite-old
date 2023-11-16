@@ -1,14 +1,12 @@
 /** @preserve
  * Copyright 2023 Declan Fodor
  */
-// previously in ./cssstyles.jsx
-import "vanilla-cookieconsent/dist/cookieconsent.css";
-import "./tmp.css";
 // end of ./cssstyles.jsx
 import 'preact/debug'
 import { render, h } from 'preact'
 import * as CookieConsent from 'vanilla-cookieconsent'
 import { useEffect } from 'preact/hooks'
+import './styles.css'
 
 export function CookieConsenter() {
   useEffect(() => {
