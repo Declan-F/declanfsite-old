@@ -4,4 +4,4 @@
 import 'preact/debug'
 import { h, render } from 'preact'
 import { MultiButtonBox } from '../index.jsx'
-window.onload = () => { render(<MultiButtonBox count='9' />, document.body) }
+window.addEventListener("load", () => { render(<MultiButtonBox count='9' />, document.querySelector("#buttongrid")) })

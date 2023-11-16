@@ -4,7 +4,8 @@
 import 'preact/debug'
 import { h } from 'preact'
 import { useState } from 'preact/hooks'
-function ButtonBox () {
+
+function ButtonBox() {
   const [value, setValue] = useState(0);
   const changestate = () => setValue(value + 1)
   return (
@@ -15,10 +16,10 @@ function ButtonBox () {
 }
 export function MultiButtonBox(params) {
   return (
-      <div className="grid grid-rows-3 grid-cols-3 justify-stretch items-stretch h-11/12 w-11/12">
-        {Array(Number(params.count)).fill(<ButtonBox />)}
-      </div>
-    )
+    <div className="grid grid-rows-3 grid-cols-3 h-11/12 w-11/12">
+      {Array(Number(params.count)).fill(<ButtonBox />)}
+    </div>
+  )
 }
 
 export function AboutButton() {
@@ -28,9 +29,9 @@ export function AboutButton() {
     <div>
       <p>Lorem ipsum...</p>
       <p hidden={value}>
-       dolor sit amet, consectetur adipiscing elit.
-       Etiam imperdiet elementum nibh, quis pretium neque varius ac.
-       Duis et diam et justo auctor sollicitudin eu vitae elit.</p>
+        dolor sit amet, consectetur adipiscing elit.
+        Etiam imperdiet elementum nibh, quis pretium neque varius ac.
+        Duis et diam et justo auctor sollicitudin eu vitae elit.</p>
       <button onClick={changestate}><p hidden={!value}>Click me!</p><p hidden={value}>Hide information.</p></button>
     </div>
   )
