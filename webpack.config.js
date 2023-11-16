@@ -5,12 +5,14 @@ const path = require('path')
 const webpack = require('webpack')
 const LicensePlugin = require('webpack-license-plugin')
 
-const production = {
-  mode: 'production',
+const config = {
+  mode: 'development',
   target: 'web',
   // Entry points are split into renderers for specific pages which use a shared library consisting of preact components.
   entry: {
-    sharedElements: './src/index.jsx',
+    // cssstyles: './src/setupfiles/cssstyles.jsx',
+    setup: './src/setupfiles/setup.jsx',
+    sharedElements: { import: './src/index.jsx', dependOn: 'setup' },
     // name: { import: '...', dependOn: 'sharedElements' },
     frontrenderer: { import: './src/renderers/frontpage.jsx', dependOn: 'sharedElements' },
     aboutusrenderer: { import: './src/renderers/aboutus.jsx', dependOn: 'sharedElements' }
@@ -24,13 +26,18 @@ const production = {
     rules: [
       {
         // Runs babel
-        test: /(\.jsx)$/,
+        test: /(\.jsx|\.js)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
         }
+      },
+      {
+        test: /(\.css)$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
+
   },
   // For debugging
   plugins: [
@@ -41,7 +48,10 @@ const production = {
       }
     }),
     new LicensePlugin()
-  ]
+  ],
+  watchOptions: {
+    aggregateTimeout: 1000
+  }
 }
 
-module.exports = [production]
+module.exports = [config]
