@@ -12,7 +12,8 @@
   "keywords": [],
   "author": "Declan Fodor",
   "dependencies": {
-    "preact": "^10.19.1"
+    "preact": "^10.19.1",
+    "vanilla-cookieconsent": "^3.0.0-rc.17"
   },
   "devDependencies": {
     "@babel/core": "^7.23.3",
