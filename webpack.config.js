@@ -15,7 +15,6 @@ const config = {
     sharedElements: { import: './src/index.jsx', dependOn: 'setup' },
     // name: { import: '...', dependOn: 'sharedElements' },
     frontrenderer: { import: './src/renderers/frontpage.jsx', dependOn: 'sharedElements' },
-    aboutusrenderer: { import: './src/renderers/aboutus.jsx', dependOn: 'sharedElements' }
   },
   output: {
     path: path.resolve(__dirname, "pages/dist/"),

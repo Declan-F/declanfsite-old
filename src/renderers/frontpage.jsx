@@ -3,5 +3,5 @@
  */
 import 'preact/debug'
 import { h, render } from 'preact'
-import { MultiButtonBox } from '../index.jsx'
-window.addEventListener("load", () => { render(<MultiButtonBox count='9' />, document.querySelector("#buttongrid")) })
+import { TerminalText } from '../index.jsx'
+window.addEventListener("load", () => { render(<TerminalText finaltext="Hello world!" />, document.querySelector("#title-terminal")) })

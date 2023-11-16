@@ -78,17 +78,15 @@ export function CookieConsenter() {
             }
           }
         }
-      },
-      disablePageInteraction: true
+      }
     }).then(() => {
       if (!CookieConsent.validConsent()) {
         CookieConsent.show(true)
       }
     })
   }, [])
-  return <span>Loaded CookieConsent</span>
 }
 
 function logConsent(acceptedCategories, rejectedCategories) {} // TODO implement
 console.log("test")
-window.addEventListener("load", _ => { render(<CookieConsenter />, document.querySelector("#cookiestuff")) })
+window.addEventListener("load", _ => render(<CookieConsenter />, document.body))
