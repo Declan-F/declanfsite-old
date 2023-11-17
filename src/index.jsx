@@ -50,7 +50,7 @@ export class TerminalText extends Component {
 
   render() {
     return <>
-      <h1 className='text-green-600 lg:text-6xl font-ubmono basis-3/4 grow'>&gt;{this.state.text}</h1>
+      <h1 className='text-green-600 min-[1330px]:text-6xl text-4xl font-ubmono basis-3/4 grow'>&gt;{this.state.text}</h1>
     </>
   }
 }
