@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "devscripts": "(npm run build -- --watch 1>/dev/null &); wrangler pages dev ./pages --port 34543 && (pkill webpack)"
+    "devscripts": "(webpack --watch 1>/dev/null &); wrangler pages dev ./pages --port 34543 && (pkill webpack)"
   },
   "keywords": [],
   "author": "Declan Fodor",

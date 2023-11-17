@@ -1,5 +1,4 @@
-@import "tailwindcss/base";
-@import "tailwindcss/variants";
-@import "tailwindcss/utilities";
-@import "vanilla-cookieconsent/dist/cookieconsent.css";
-@import "cookieconsent-modifier.css"
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+

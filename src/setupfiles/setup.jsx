@@ -1,12 +1,15 @@
 /** @preserve
  * Copyright 2023 Declan Fodor
  */
-// end of ./cssstyles.jsx
 import 'preact/debug'
 import { render, h } from 'preact'
 import * as CookieConsent from 'vanilla-cookieconsent'
 import { useEffect } from 'preact/hooks'
+// had to change import order in order to ensure tailwind worked properly
 import './styles.css'
+import 'vanilla-cookieconsent/dist/cookieconsent.css'
+import './cookieconsent-modifier.css'
+import './ubfonts/UbuntuMono-Regular.ttf'
 
 export function CookieConsenter() {
   useEffect(() => {

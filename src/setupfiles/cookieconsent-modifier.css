@@ -58,3 +58,8 @@
 #cc-main .cm__btn {
     border-width: 2px;
 }
+
+@font-face {
+    font-family: "UB-MONO";
+    src: url("./ubfonts/UbuntuMono-Regular.ttf");
+}

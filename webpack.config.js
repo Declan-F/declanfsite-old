@@ -47,6 +47,10 @@ const config = {
             }
           }
         ]
+      },
+      {
+        test: /(\.ttf)$/,
+        type: 'asset/resource'
       }
     ]
 
@@ -63,13 +67,16 @@ const config = {
   ],
   watchOptions: {
     aggregateTimeout: 1000,
+    poll: 1000,
+    stdin: false,
     /**
      * Matches the first character of a file path
      * - Except when /src.+(html|jsx|css)/ matches
      * - Except when /pages.+(html|jsx|css)/ matches
      * - - However, it does match when there is the string "dist" between pages and the file endings
+     * // /^[\s\S](?!(.*src.+(html|jsx|css))|(.*pages(?!.*dist.*).+(html|jsx|css)))/ Didn't work, fix later
      */
-    ignored: /^[\s\S](?!(.*src.+(html|jsx|css))|(.*pages(?!.*dist.*).+(html|jsx|css)))/
+    ignored: ['**/webpack.config.js', '**/dist/**']
   }
 }
 
