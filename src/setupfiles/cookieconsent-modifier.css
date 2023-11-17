@@ -1,0 +1,60 @@
+#cc-main {
+    --cc-font-family: "consolas";
+    --cc-modal-border-radius: 0px;
+    /* Alpha values do not work past a certain point with css, it seems */
+    --cc-bg: rgb(0 13 0 / 0.97);
+    --cc-primary-color: #ebf6ee;
+    --cc-secondary-color: #aebbc5;
+
+    --cc-btn-primary-bg: rgb(0 255 0);
+    --cc-btn-primary-color: rgb(0 0 0);
+    --cc-btn-primary-border-color: rgb(0 255 0 / 0.7);
+    --cc-btn-primary-hover-bg: rgb(0 255 0 / 0.9);
+    --cc-btn-primary-hover-color: rgb(0 0 0);
+    --cc-btn-primary-hover-border-color: rgb(0 255 0 / 0.9);
+
+    --cc-btn-secondary-bg: rgb(255 0 0);
+    --cc-btn-secondary-color: var(--cc-primary-color);
+    --cc-btn-secondary-border-color: rgb(255 0 0 / 0.7);
+    --cc-btn-secondary-hover-bg: rgb(255 0 0 / 0.9);
+    --cc-btn-secondary-hover-color: var(--cc-secondary-color);
+    --cc-btn-secondary-hover-border-color: rgb(255 0 0 / 0.9);;
+
+    --cc-separator-border-color: rgb(0 200 0 / 0.3);
+    /* these values for toggling are fine */
+    --cc-toggle-on-bg: #401060;
+    --cc-toggle-off-bg: rgb(0 0 0 / 1);
+    --cc-toggle-on-knob-bg: #60aa60;
+    --cc-toggle-off-knob-bg: #aa6060;
+
+    --cc-toggle-enabled-icon-color: var(--cc-btn-primary-color);
+    --cc-toggle-disabled-icon-color: var(--cc-btn-primary-color);
+
+    --cc-toggle-readonly-bg: #343e45;
+    --cc-toggle-readonly-knob-bg: #5f6b72;
+    --cc-toggle-readonly-knob-icon-color: var(--cc-toggle-readonly-bg);
+    /* end of toggle values */
+    --cc-section-category-border: var(--cc-separator-border-color);
+
+    --cc-cookie-category-block-bg: rgb(0 0 50);
+    --cc-cookie-category-block-border: var(--cc-section-category-border);
+    --cc-cookie-category-block-hover-bg: rgb(0 6 0 / 0.97);
+    --cc-cookie-category-block-hover-border: rgb(0 200 0 / 0.4);
+    --cc-cookie-category-expanded-block-bg: rgb(0 0 35);
+    --cc-cookie-category-expanded-block-hover-bg: rgb(0 50 0);
+
+    --cc-overlay-bg: rgb(0 0 0 / 0.5);
+    --cc-webkit-scrollbar-bg: var(--cc-section-category-border);
+    --cc-webkit-scrollbar-hover-bg: var(--cc-btn-primary-hover-bg);
+
+    --cc-footer-bg: var(--cc-bg);
+    --cc-footer-color: var(--cc-secondary-color);
+    --cc-footer-border-color: rgb(0 255 0);
+}
+/* A little ugly, but it works well */
+#cc-main .cm, #cc-main .pm {
+    border: 2px solid rgb(0 255 0);
+}
+#cc-main .cm__btn {
+    border-width: 2px;
+}
