@@ -4,5 +4,5 @@
 
 import 'preact/debug'
 import { h, render } from 'preact'
-import { TerminalText } from '../index.jsx'
-window.addEventListener("load", () => { render(<TerminalText finaltext={"echo \"declan fodor's portfolio\""} />, document.querySelector("#title-terminal")) })
+import { FrontPage } from '../index.jsx'
+window.addEventListener("load", _ => render(<FrontPage />, document.body))

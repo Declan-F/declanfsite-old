@@ -13,7 +13,7 @@ const config = {
     // cssstyles: './src/setupfiles/cssstyles.jsx',
     setup: './src/setupfiles/setup.jsx',
     sharedElements: { import: './src/index.jsx', dependOn: 'setup' },
-    // name: { import: '...', dependOn: 'sharedElements' },
+    // // name: { import: '...', dependOn: 'sharedElements' },
     frontrenderer: { import: './src/renderers/frontpage.jsx', dependOn: 'sharedElements' }
   },
   output: {
