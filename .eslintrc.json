@@ -21,6 +21,7 @@
         "max": 2
       }
     ],
+    "react/jsx-no-bind": "off",
     "jsdoc/check-values": ["error", {
       "licensePattern": "MIT",
       "allowedAuthors": ["Declan Fodor"]
