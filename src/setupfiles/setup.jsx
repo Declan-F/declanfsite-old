@@ -1,93 +1,33 @@
-/** @preserve
- * Copyright 2023 Declan Fodor
+/**
+ *  @version 0.0.3
+ *  @author Declan Fodor
+ *  @license MIT
+ *
+ * MIT License
+ *
+ * Copyright (c) 2023 Declan Fodor
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included 
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 import 'preact/debug'
-import { render, h } from 'preact'
-import * as CookieConsent from 'vanilla-cookieconsent'
-import { useEffect } from 'preact/hooks'
-// had to change import order in order to ensure tailwind worked properly
+import 'preact'
+import 'preact/hooks'
+// import { render, h } from 'preact'
 import './styles.css'
-import 'vanilla-cookieconsent/dist/cookieconsent.css'
-import './cookieconsent-modifier.css'
 import './ubfonts/UbuntuMono-Regular.ttf'
-
-export function CookieConsenter() {
-  useEffect(() => {
-    CookieConsent.run({
-      guiOptions: {
-        consentModal: {
-          layout: 'box inline',
-          position: 'bottom right',
-          flipButtons: false
-        },
-        preferencesModal: {
-          layout: 'box',
-          position: 'left',
-          flipButtons: false
-        }
-      },
-      categories: {
-        necessary: {
-          enabled: true,
-          readOnly: true
-        },
-        analytics: {
-          enabled: false,
-          readOnly: false
-        }
-      },
-      language: {
-        default: 'en',
-        translations: {
-          en: {
-            consentModal: {
-              title: 'Cookies',
-              acceptAllBtn: 'Accept All',
-              acceptNecessaryBtn: 'Reject all',
-              showPreferencesBtn: 'Managed individual preferences'
-            },
-            preferencesModal: {
-              title: 'Manage cookie preferences',
-              acceptAllBtn: 'Accept all',
-              acceptNecessaryBtn: 'Reject all',
-              savePreferencesBtn: 'Accept current selection',
-              sections: [
-                {
-                  title: 'Cookies',
-                  description: 'test1'
-                },
-                {
-                  title: 'Necessary cookies',
-                  description: 'Required cookies to run website.',
-                  linkedCategory: 'necessary'
-                },
-                {
-                  title: 'Analytical cookies',
-                  description: 'Cookies to gather user metrics.',
-                  linkedCategory: 'analytics'
-                }
-              ]
-
-            },
-            onFirstConsent: () => {
-              const userprefs = CookieConsent.getUserPreferences()
-              logConsent(userprefs.acceptedCategories, userprefs.rejectedCategories)
-            },
-            onChange: () => {
-              const userprefs = CookieConsent.getUserPreferences()
-              logConsent(userprefs.acceptedCategories, userprefs.rejectedCategories)
-            }
-          }
-        }
-      }
-    }).then(() => {
-      if (!CookieConsent.validConsent()) {
-        CookieConsent.show(true)
-      }
-    })
-  }, [])
-}
-
-function logConsent(acceptedCategories, rejectedCategories) {} // TODO implement
-console.log("test")
-window.addEventListener("load", _ => render(<CookieConsenter />, document.body))
