@@ -108,16 +108,30 @@ export class TerminalText extends Component {
     clearInterval(this.writetext)
   }
 
+  /**
+   * We need to be able to skip the entire display if someone wants to.
+   */
+  handleClick () {
+    this.setState(prev => ({ text: prev.text + this.unwrittentext }))
+    /* Letting existant code handle the rest
+     by setting unwrittentext to be empty */
+    this.unwrittentext = ''
+    this.doneProcessing()
+  }
+
   render () {
+    const HandleClickBinded = this.handleClick.bind(this)
     return (
       <>
-        <h1 className='
+        <h1
+          className='
           text-green-600
           min-[1330px]:text-6xl
           text-4xl
           font-ubmono
           basis-3/4
           grow'
+          onClick={HandleClickBinded}
         >
           &gt;{this.state.text}
         </h1>
