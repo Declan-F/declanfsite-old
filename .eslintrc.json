@@ -1,13 +1,43 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": ["standard", "preact"],
-    "plugins": ["@babel"],
-    "parserOptions": {
-        "ecmaVersion": "latest"
-    },
-    "rules": {
-    }
+  "extends": [
+    "preact",
+    "standard",
+    "standard-jsx",
+    "plugin:jsdoc/recommended"
+  ],
+  "plugins": [
+    "@babel",
+    "@stylistic",
+    "jsdoc"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "rules": {
+    "max-len": "warn",
+    "max-statements-per-line": [
+      "warn",
+      {
+        "max": 2
+      }
+    ],
+    "jsdoc/check-values": ["error", {
+      "licensePattern": "MIT",
+      "allowedAuthors": ["Declan Fodor"]
+    }],
+    "jsdoc/require-description-complete-sentence": "warn",
+    "jsdoc/require-returns": "off",
+    "jsdoc/require-param": "off",
+    "jsdoc/require-file-overview": [
+      "warn",
+      {
+        "tags": {
+          "license": {
+            "mustExist": true,
+            "preventDuplicates": true
+          }
+        }
+      }
+    ]
+  }
 }
