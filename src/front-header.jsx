@@ -33,6 +33,7 @@ import { Component, Fragment, h } from 'preact'
  */
 const CURSOR_BLINK_RATE = 530
 const WRITE_RATE = 200
+
 export class TerminalText extends Component {
   state = { text: '_' } // We start out with the cursor existant in the text
   index = 0 // Used to add the next character, and manage the cursor blinking
@@ -85,6 +86,10 @@ export class TerminalText extends Component {
     this.index++
   }
 
+  /**
+   * Interval for writing text,
+   * and managing doneProcessing call if all text is written.
+   */
   manageText () {
     if (this.state.text.length < this.finaltext.length) {
       /* If the text length is less than the final text,
@@ -104,7 +109,8 @@ export class TerminalText extends Component {
       this.blinkCursor.bind(this),
       CURSOR_BLINK_RATE
     )
-    // Interval for writing text, and managing done state if it is all written.
+    /* Interval for writing text,
+    and managing doneProcessing call if all text is written. */
     this.writeinterval = setInterval(
       this.manageText.bind(this),
       WRITE_RATE
@@ -112,8 +118,8 @@ export class TerminalText extends Component {
   }
 
   componentWillUnmount () {
-    // If these variables are no longer used, then this does nothing.
-    // But if they do exist when they should not, then we cancel them here.
+    /* If these variables are no longer used, then this does nothing.
+    But if they do exist when they should not, then we cancel them here. */
     clearInterval(this.blinkinterval)
     clearInterval(this.writeinterval)
   }
@@ -130,7 +136,7 @@ export class TerminalText extends Component {
   }
 
   /**
-   * Removes interval, so code does not keep attempting to write,
+   * Removes intervals, so code does not keep attempting to write,
    * and sends an event for other elements.
    */
   doneProcessing () {
