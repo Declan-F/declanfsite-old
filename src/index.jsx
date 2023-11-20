@@ -61,7 +61,7 @@ export function FrontPage () {
         gap-1/16
         auto-rows-fr
         m-1/16
-        h-[200vh]
+        h-portfolio-height
         place-content-evenly'
         id='main-portfolio'
       >

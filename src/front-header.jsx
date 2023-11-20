@@ -27,96 +27,19 @@
  */
 import 'preact/debug'
 import { Component, Fragment, h } from 'preact'
+/**
+ * Do not set this less than the write rate,
+ * as then things will likely break.
+ */
 const CURSOR_BLINK_RATE = 530
-
+const WRITE_RATE = 200
 export class TerminalText extends Component {
   state = { text: '_' } // We start out with the cursor existant in the text
-  cursorline = true // Reflects if the cursor exists or not
-
+  index = 0 // Used to add the next character, and manage the cursor blinking
   constructor (props, context) {
     super(props, context)
-    this.unwrittentext = props.finaltext
+    this.finaltext = props.finaltext
     this.compid = props.compid ? props.compid : 1
-  }
-
-  manageCursorBlink () {
-    this.blinkcursor = setInterval(() => {
-      // Changes the state of the cursor
-      this.setState(prev => ({
-        text: this.cursorline
-          ? prev.text.slice(0, -1)
-          : `${prev.text}_`
-      }))
-      this.cursorline = !this.cursorline
-      if (!(this.cursorline || this.unwrittentext)) {
-        // If the text is done being written, and the cursor is no longer there,
-        // then we can safely stop.
-        clearInterval(this.blinkcursor)
-      }
-    }, CURSOR_BLINK_RATE)
-  }
-
-  /**
-   * Takes the first character from the text that has not been written
-   * and writes it.
-   */
-  writeChar () {
-    this.setState(prev => ({
-      text: this.cursorline
-        ? `${prev.text.slice(0, -1)}${this.unwrittentext[0]}_`
-        : `${prev.text}${this.unwrittentext[0]}`
-    }))
-    // Removes the first character from the 'unwritten text,'
-    // since it is technically written now.
-    this.unwrittentext = this.unwrittentext.slice(1, this.unwrittentext.length)
-  }
-
-  /**
-   * Removes interval, so code does not keep attempting to write,
-   * and sends an event for other elements.
-   */
-  doneProcessing () {
-    if (this.unwrittentext.length === 0) {
-      // Incase other parts of code need to know this is loaded (they do)
-      dispatchEvent(
-        new CustomEvent(`terminal-text-done-${this.compid.toString()}`)
-      )
-      // All the text is written, as such we should stop calling this.
-      clearInterval(this.writetext)
-    }
-  }
-
-  /**
-   * Writes text and cleans up when done.
-   */
-  manageWrite () {
-    this.writetext = setInterval(() => {
-      this.writeChar()
-      this.doneProcessing()
-    }, 200)
-  }
-
-  componentDidMount () {
-    this.manageCursorBlink()
-    this.manageWrite()
-  }
-
-  componentWillUnmount () {
-    // If these variables are no longer used, then this does nothing.
-    // But if they do exist when they should not, then we cancel them here.
-    clearInterval(this.blinkcursor)
-    clearInterval(this.writetext)
-  }
-
-  /**
-   * We need to be able to skip the entire display if someone wants to.
-   */
-  handleClick () {
-    this.setState(prev => ({ text: prev.text + this.unwrittentext }))
-    /* Letting existant code handle the rest
-     by setting unwrittentext to be empty */
-    this.unwrittentext = ''
-    this.doneProcessing()
   }
 
   render () {
@@ -137,5 +60,86 @@ export class TerminalText extends Component {
         </h1>
       </>
     )
+  }
+
+  /**
+   * We need to be able to skip the entire display if someone wants to.
+   */
+  handleClick () {
+    /* Letting existant code handle the rest
+     by setting the written text equal to the final text */
+    this.setState(() => ({ text: this.finaltext }))
+    this.doneProcessing()
+  }
+
+  /**
+   * Takes the first character from the text that has not been written
+   * and writes it.
+   */
+  writeChar () {
+    this.setState(prev => ({
+      text: this.index >= prev.text.length
+        ? `${prev.text}${this.finaltext[this.index]}`
+        : `${prev.text.slice(0, -1)}${this.finaltext[this.index]}_`
+    }))
+    this.index++
+  }
+
+  manageText () {
+    if (this.state.text.length < this.finaltext.length) {
+      /* If the text length is less than the final text,
+      then we know we must write. */
+      this.writeChar()
+    } else if (this.state.text.length === this.index) {
+      /* If the text length is not less than the final text length,
+      and is equal to the index, then we know there is not a cursor,
+      and as such the text is equal for both. */
+      this.doneProcessing()
+    }
+  }
+
+  componentDidMount () {
+    // Interval for blinking text
+    this.blinkinterval = setInterval(
+      this.blinkCursor.bind(this),
+      CURSOR_BLINK_RATE
+    )
+    // Interval for writing text, and managing done state if it is all written.
+    this.writeinterval = setInterval(
+      this.manageText.bind(this),
+      WRITE_RATE
+    )
+  }
+
+  componentWillUnmount () {
+    // If these variables are no longer used, then this does nothing.
+    // But if they do exist when they should not, then we cancel them here.
+    clearInterval(this.blinkinterval)
+    clearInterval(this.writeinterval)
+  }
+
+  /**
+   * Blinks the cursor.
+   */
+  blinkCursor () {
+    this.setState(prev => ({
+      text: this.index >= prev.text.length
+        ? `${prev.text}_`
+        : prev.text.slice(0, this.index) + prev.text.slice(this.index + 1)
+    }))
+  }
+
+  /**
+   * Removes interval, so code does not keep attempting to write,
+   * and sends an event for other elements.
+   */
+  doneProcessing () {
+    // Incase other parts of code need to know this is loaded (they do)
+    dispatchEvent(
+      new CustomEvent(`terminal-text-done-${this.compid.toString()}`)
+    )
+    // All the text is written, as such we should stop calling this.
+    clearInterval(this.writeinterval)
+    clearInterval(this.blinkinterval)
   }
 }
