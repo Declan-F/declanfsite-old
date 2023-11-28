@@ -8,5 +8,6 @@
     "editor.tabSize": 2,
     "editor.detectIndentation": false,
     "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-    "javascript.format.insertSpaceAfterConstructor": true
+    "javascript.format.insertSpaceAfterConstructor": true,
+    "jest.jestCommandLine": "npm run test --"
 }

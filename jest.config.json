@@ -1,10 +1,11 @@
 {
-    "setupFilesAfterEnv": ["<rootDir>__tests__/setupEnv.jsx"],
+    "setupFilesAfterEnv": ["<rootDir>/__tests__/setupAfterEnv.jsx"],
+    "setupFiles": ["<rootDir>/__tests__/setupEnv.jsx"],
     "transform": {
-        "\\.[jt]sx?$": "babel-jest"
+        "\\.([jt]sx|js|mjs)?$": "babel-jest"
     },
-    "transformIgnorePatterns": ["/node_modules/(?!preact)$", "\\.pnp\\.[^\\\/]+$"],
-    "testPathIgnorePatterns": ["setupEnv.jsx", "setupTests.jsx"],
+    "transformIgnorePatterns": ["\\.pnp\\.[^\\\/]+$"],
+    "testPathIgnorePatterns": ["setupEnv.jsx", "setupAfterEnv.jsx"],
     "testEnvironment": "jsdom",
     "testEnvironmentOptions": {
         "pretendToBeVisual": true
