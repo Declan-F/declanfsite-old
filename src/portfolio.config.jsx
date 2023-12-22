@@ -32,7 +32,7 @@ import { h, Fragment } from 'preact'
 const portfolioFragmentContents = [
   <>
     <a
-      href='http://example.com/'
+      href='.'
       className='flex justify-center items-center h-full flex-col'
     >
       <h3
