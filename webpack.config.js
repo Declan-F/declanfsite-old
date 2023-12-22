@@ -30,7 +30,7 @@ const webpack = require('webpack')
 const LicensePlugin = require('webpack-license-plugin')
 
 const config = {
-  mode: 'development',
+  mode: 'production',
   target: 'web',
   // Entry points are split into renderers for specific pages which use a shared library consisting of preact components.
   entry: {
