@@ -1,4 +1,5 @@
 /**
+ *  @summary Exports a list which will be indexed to add to the portfolio.
  *  @version 0.0.3
  *  @author Declan Fodor
  *  @license MIT
@@ -25,42 +26,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/* eslint-disable max-len */
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./src/**/*.jsx', './pages/**/*.html'],
-  safelist: ['opacity-0', 'opacity-100'],
-  theme: {
-    extend: {
-      fontFamily: {
-        ubmono: ['UB-MONO', 'monospace']
-      },
-      spacing: {
-        '1/8': '12.5%',
-        '1/2': '50%',
-        '1/4': '25%',
-        '3/4': '75%',
-        '1/16': '6.25%',
-        '1/2vh': '50vh',
-        'portfolio-height': 'var(--portfolio-height, 0)'
-      },
-      minWidth: {
-        '1/6': '33.333334%'
-      },
-      maxHeight: {
-        '1/2vh': '50vh'
-      },
-      maxWidth: {
-        '1/4vw': '25vw'
-      },
-      boxShadow: {
-        custom1: '0 15px 120px -50px rgba(0, 0, 0, 0.3)',
-        custom2: '0 15px 120px 0px rgba(0, 0, 0, 0.3)'
-      },
-      colors: {
-        'blue-max': 'rgb(0, 0, 30)'
-      }
-    }
-  },
-  plugins: []
-}
+/* eslint-disable react/jsx-key */
+import { h, Fragment } from 'preact'
+
+const portfolioFragmentContents = [
+  <>
+    <a
+      href='http://example.com/'
+      className='flex justify-center items-center h-full flex-col'
+    >
+      <h3
+        className='text-2xl font-bold'
+      >
+        This website is currently unfinished.
+      </h3>
+      <p>Segments will be added to this portfolio over time.</p>
+    </a>
+  </>
+]
+
+/* Tailwind makes it difficult to dynamically set element size,
+but because this is only called on window load,
+we should be able to just set a css variable on the document root.
+We can then use it to dynamicallly set the height based on the list size */
+document.documentElement.style.setProperty(
+  '--portfolio-height',
+  `${portfolioFragmentContents.length * 66.667}vh`
+)
+export { portfolioFragmentContents }

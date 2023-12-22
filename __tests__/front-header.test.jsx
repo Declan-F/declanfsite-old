@@ -25,42 +25,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/* eslint-disable max-len */
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./src/**/*.jsx', './pages/**/*.html'],
-  safelist: ['opacity-0', 'opacity-100'],
-  theme: {
-    extend: {
-      fontFamily: {
-        ubmono: ['UB-MONO', 'monospace']
-      },
-      spacing: {
-        '1/8': '12.5%',
-        '1/2': '50%',
-        '1/4': '25%',
-        '3/4': '75%',
-        '1/16': '6.25%',
-        '1/2vh': '50vh',
-        'portfolio-height': 'var(--portfolio-height, 0)'
-      },
-      minWidth: {
-        '1/6': '33.333334%'
-      },
-      maxHeight: {
-        '1/2vh': '50vh'
-      },
-      maxWidth: {
-        '1/4vw': '25vw'
-      },
-      boxShadow: {
-        custom1: '0 15px 120px -50px rgba(0, 0, 0, 0.3)',
-        custom2: '0 15px 120px 0px rgba(0, 0, 0, 0.3)'
-      },
-      colors: {
-        'blue-max': 'rgb(0, 0, 30)'
-      }
-    }
-  },
-  plugins: []
-}
+import { h } from 'preact'
+import { render, fireEvent, screen, waitFor } from '@testing-library/preact'
+import { TerminalText } from '../src/front-header.jsx'
+describe('Test terminal', () => {
+  beforeEach(() => {
+    document.head.innerHTML = ''
+    document.body.innerHTML = ''
+  })
+  test('Normal inputs', async () => {
+    render(<TerminalText
+      compid='1'
+      finaltext={"echo \"declan fodor's portfolio\""}
+           />)
+    await (await screen.findByText(/\>/)).click()
+    expect(screen.getByText(/\>echo \"declan fodor's portfolio\"/))
+      .toContainHTML("echo \"declan fodor's portfolio\"")
+  })
+})

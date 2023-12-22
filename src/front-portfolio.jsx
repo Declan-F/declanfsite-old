@@ -27,46 +27,42 @@
  * SOFTWARE.
  */
 import 'preact/debug'
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect } from 'preact/hooks'
 import { useSignal } from '@preact/signals'
-import { h, Fragment } from 'preact'
-
+import { h } from 'preact'
+import { portfolioFragmentContents } from './portfolio.config.jsx'
+// A lot of these are one off values and cannot really be reused
 const CLASS_NAMES = `
- shadow-custom1 text-slate-100 shadow-gray-400 bg-blue-max
- h-full w-full rounded-[40px] origin-center scale-y-90 scale-x-75
- transition-nocolor duration-[200ms,700ms,700ms] ease-in
- hover:scale-y-100 hover:scale-x-90 hover:shadow-custom2 hover:shadow-gray-400`
-const PORTFOLIO_LENGTH = 9
-/**
- *
- */
-function arrayOfPortfolioFragments (number) {
-  // Returns a seperate signal instance for each number
-  return Array.from(
-    { length: number },
-    (v, i) => {
-      return (
-        <PortfolioFragment
-          key={`${i * 200}PortfolioFragment`}
-          timeout={i * 1000}
-        />
-      )
-    })
-}
+  text-slate-100 shadow-gray-400 bg-blue-max
+  origin-center scale-y-90 scale-x-75 rounded-[40px] 
+  ease-in
+  transition-[opacity,_transform,_box-shadow] duration-[200ms,700ms,700ms] 
+  hover:scale-y-100 hover:scale-x-90 hover:shadow-gray-400`
+const porftoliolength = portfolioFragmentContents.length
+const portfoliodelay = 1000
+
 /**
  *
  *
  */
 function PortfolioFragment (params) {
-  const classes = useSignal(`opacity-0 ${CLASS_NAMES}`)
-  setTimeout(() => {
-    classes.value = `opacity-100 ${CLASS_NAMES}`
-  }, params.timeout)
+  const classes = useSignal(`opacity-[0.01] h-px w-px ${CLASS_NAMES}`)
+  useEffect(() => {
+    window.addEventListener('terminal-text-done-1', () => {
+      setTimeout(() => {
+        classes.value = `
+      opacity-100
+      h-full w-full
+      shadow-custom1 hover:shadow-custom2 
+      ${CLASS_NAMES}`
+      }, params.index * 1000)
+    })
+  })
   return (
     <section
       className={classes.value}
     >
-      {new Array(50).fill('hi').join(' ')}
+      {portfolioFragmentContents[params.index]}
     </section>
   )
 }
@@ -74,14 +70,15 @@ function PortfolioFragment (params) {
 /**
  *
  */
-export function Portfolio () {
-  const [complist, changecomplist] = useState([null, null])
-
-  useEffect(() => {
-    window.addEventListener('terminal-text-done-1', () => {
-      const portfoliofragmentlist = arrayOfPortfolioFragments(PORTFOLIO_LENGTH)
-      changecomplist(portfoliofragmentlist)
+export function Portfolio (params) {
+  return Array.from(
+    { length: porftoliolength },
+    (v, i) => {
+      return (
+        <PortfolioFragment
+          key={`${i * portfoliodelay}PortfolioFragment`}
+          index={i}
+        />
+      )
     })
-  })
-  return <>{complist}</>
 }
