@@ -38,7 +38,7 @@ const CLASS_NAMES = `
   ease-in
   transition-[opacity,_transform,_box-shadow] duration-[200ms,700ms,700ms] 
   hover:scale-y-100 hover:scale-x-90 hover:shadow-gray-400`
-const porftoliolength = portfolioFragmentContents.length
+const portfoliolength = portfolioFragmentContents.length
 const portfoliodelay = 1000
 
 /**
@@ -72,7 +72,7 @@ function PortfolioFragment (params) {
  */
 export function Portfolio (params) {
   return Array.from(
-    { length: porftoliolength },
+    { length: portfoliolength },
     (v, i) => {
       return (
         <PortfolioFragment
